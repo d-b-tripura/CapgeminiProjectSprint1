@@ -1,5 +1,6 @@
 package com.ec.onlineplantnursery.planter.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,9 @@ public class IPlanterServiceImpl implements IPlanterService {
 	public Planter deletePlanter(Planter planter) {
 		// TODO Auto-generated method stub
 		//boolean isDel = true;
+		Planter p = planter;
 		repo.deleteById(planter.getPlanterId());
-		return null;
+		return p;
 		
 	}
 
@@ -55,19 +57,27 @@ public class IPlanterServiceImpl implements IPlanterService {
 	@Override
 	public Planter viewPlanter(String planterShape) {
 		// TODO Auto-generated method stub
+		//return list - jpql
+		
 		return null;
 	}
 
 	@Override
 	public List<Planter> viewAllPlanters() {
 		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
 	public List<Planter> viewAllPlanters(double minCost, double maxCost) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Planter> planterList = new ArrayList<Planter>();
+		for(Planter planter : repo.findAll()) {
+			if(planter.getPlanterCost() >= minCost && planter.getPlanterCost() <= maxCost) {
+				planterList.add(planter);
+			}
+		}
+		return planterList;
 	}
 
 }
